@@ -1,10 +1,7 @@
 :root {
-  color: #f5f7fb;
+  color: #f5f5f5;
   font-family: "Avenir Next", "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(255, 170, 90, 0.22), transparent 30%),
-    radial-gradient(circle at top right, rgba(95, 180, 255, 0.18), transparent 28%),
-    linear-gradient(180deg, #08111f 0%, #0e1828 45%, #111c2d 100%);
+  background: #1a1a1a;
 }
 
 * {
@@ -13,10 +10,11 @@
 
 body {
   margin: 0;
+  width: 100%;
   min-width: 320px;
   min-height: 100vh;
-  color: #f5f7fb;
-  background: transparent;
+  color: #f5f5f5;
+  background: #1a1a1a;
 }
 
 button,
@@ -25,11 +23,13 @@ input {
 }
 
 #root {
+  width: 100%;
   min-height: 100vh;
 }
 
 .app-shell {
   position: relative;
+  width: 100%;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -46,7 +46,7 @@ input {
   left: -6rem;
   width: 18rem;
   height: 18rem;
-  background: rgba(255, 167, 87, 0.18);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .ambient-two {
@@ -54,13 +54,13 @@ input {
   right: -4rem;
   width: 16rem;
   height: 16rem;
-  background: rgba(84, 187, 255, 0.18);
+  background: rgba(150, 150, 150, 0.08);
 }
 
 .app {
   position: relative;
   z-index: 1;
-  width: min(1100px, calc(100% - 2rem));
+  width: min(1400px, calc(100% - clamp(2rem, 6vw, 7rem)));
   margin: 0 auto;
   padding: 3rem 0 4rem;
 }
@@ -71,7 +71,7 @@ input {
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  color: #ffbe7a;
+  color: #a3a3a3;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.8rem;
@@ -87,7 +87,7 @@ input {
 .hero-copy {
   max-width: 46rem;
   margin: 1rem 0 0;
-  color: #c6d2e3;
+  color: #a3a3a3;
   font-size: 1.05rem;
   line-height: 1.7;
 }
@@ -102,29 +102,23 @@ input {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.85rem;
-  padding: 1rem;
-  border: 1px solid rgba(187, 206, 229, 0.16);
-  border-radius: 1.25rem;
-  background: rgba(9, 17, 29, 0.72);
-  box-shadow: 0 20px 60px rgba(2, 6, 14, 0.35);
-  backdrop-filter: blur(18px);
 }
 
 .analyzer-form input {
   width: 100%;
   padding: 1rem 1.1rem;
-  border: 1px solid rgba(163, 184, 204, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 0.95rem;
-  background: rgba(19, 30, 46, 0.88);
-  color: #f5f7fb;
+  background: #202020;
+  color: #fff;
 }
 
 .analyzer-form input::placeholder {
-  color: #7f91aa;
+  color: #858585;
 }
 
 .analyzer-form input:focus {
-  outline: 2px solid rgba(255, 190, 122, 0.45);
+  outline: 2px solid rgba(255, 255, 255, 0.65);
   outline-offset: 2px;
 }
 
@@ -132,8 +126,8 @@ input {
   padding: 0.95rem 1.35rem;
   border: 0;
   border-radius: 0.95rem;
-  background: linear-gradient(135deg, #ffb86b 0%, #ff7c54 100%);
-  color: #111827;
+  background: #f5f5f5;
+  color: #0a0a0a;
   font-weight: 700;
   cursor: pointer;
   transition:
@@ -144,7 +138,8 @@ input {
 
 .analyzer-form button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 10px 25px rgba(255, 124, 84, 0.28);
+  background: #d4d4d4;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.12);
 }
 
 .analyzer-form button:disabled {
@@ -159,17 +154,17 @@ input {
 }
 
 .error-message {
-  background: rgba(136, 31, 31, 0.28);
-  border: 1px solid rgba(255, 138, 138, 0.22);
-  color: #ffd0d0;
+  background: #202020;
+  border: 1px solid #555;
+  color: #f5f5f5;
 }
 
 .results-panel {
   padding: 1.2rem;
-  border: 1px solid rgba(187, 206, 229, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 1.4rem;
-  background: rgba(7, 14, 24, 0.76);
-  box-shadow: 0 20px 60px rgba(2, 6, 14, 0.28);
+  background: #101010;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(18px);
 }
 
@@ -193,9 +188,9 @@ input {
 .overview-card,
 .characteristic-card,
 .result-card {
-  border: 1px solid rgba(187, 206, 229, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 1.1rem;
-  background: rgba(17, 28, 45, 0.74);
+  background: #1b1b1b;
 }
 
 .overview-card,
@@ -208,7 +203,7 @@ input {
 
 .overview-label,
 .characteristic-card span {
-  color: #8fa2bb;
+  color: #a3a3a3;
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -227,6 +222,11 @@ input {
 
 .results-sections {
   margin-top: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.results-sections .result-card:last-child {
+  grid-column: 1 / -1;
 }
 
 .result-card {
@@ -243,8 +243,9 @@ input {
   margin: 0;
   padding: 1rem;
   border-radius: 0.85rem;
-  background: rgba(5, 10, 18, 0.9);
-  color: #dbe6f4;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #080808;
+  color: #e5e5e5;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-x: auto;
@@ -261,14 +262,15 @@ input {
 .cookie-list li {
   padding: 0.9rem 1rem;
   border-radius: 0.9rem;
-  background: rgba(5, 10, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #0b0b0b;
   display: grid;
   gap: 0.3rem;
 }
 
 .cookie-list span,
 .empty-state {
-  color: #b8c7da;
+  color: #a3a3a3;
 }
 
 .sr-only {
@@ -287,6 +289,14 @@ input {
   .results-overview,
   .characteristics-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .results-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .results-sections .result-card:last-child {
+    grid-column: auto;
   }
 }
 

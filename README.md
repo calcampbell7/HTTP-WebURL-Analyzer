@@ -26,5 +26,17 @@ For a submitted website, the app displays:
 - The Python script performs the request and returns structured JSON.
 - The frontend renders that data below the input bar.
 
+## Run Locally
+
+You need Node.js, npm, and Python 3 installed. From the project directory, run:
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the local URL printed by Vite. The development server exposes
+`/api/analyze` and runs the Python analyzer automatically.
+
 ## Try it Out!
 https://vite-react-ochre-zeta-22.vercel.app

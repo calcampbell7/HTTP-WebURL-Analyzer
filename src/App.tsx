@@ -48,7 +48,18 @@ function App() {
         body: JSON.stringify({ url: trimmedUrl }),
       })
 
-      const data = await response.json()
+      const responseText = await response.text()
+      let data: AnalysisResult & { error?: string }
+
+      try {
+        data = JSON.parse(responseText)
+      } catch {
+        throw new Error(
+          response.ok
+            ? 'The analyzer returned an invalid response.'
+            : `The analyzer endpoint is unavailable (HTTP ${response.status}).`,
+        )
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Unable to analyze the website.')
@@ -72,7 +83,6 @@ function App() {
 
       <div className="app">
         <header className="hero">
-          <p className="eyebrow">Socket-level inspector</p>
           <h1>HTTP Website Analyzer</h1>
           <p className="hero-copy">
             Enter a website URI to inspect the response headers, transport details, cookies, and
