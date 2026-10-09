@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from backend import Webtester
+from api import analyze as analyze_api
 
 
 class ParseInputTests(unittest.TestCase):
@@ -90,6 +91,32 @@ class RedirectTests(unittest.TestCase):
                 "http://example.com",
                 redirects_remaining=0,
             )
+
+
+class RateLimitTests(unittest.TestCase):
+    def setUp(self):
+        analyze_api._requests_by_client.clear()
+
+    def test_limits_requests_within_window(self):
+        for request_number in range(analyze_api.RATE_LIMIT_REQUESTS):
+            self.assertIsNone(analyze_api.check_rate_limit("203.0.113.1", now=request_number))
+
+        retry_after = analyze_api.check_rate_limit(
+            "203.0.113.1",
+            now=analyze_api.RATE_LIMIT_REQUESTS,
+        )
+        self.assertGreater(retry_after, 0)
+
+    def test_allows_requests_after_window_expires(self):
+        for request_number in range(analyze_api.RATE_LIMIT_REQUESTS):
+            analyze_api.check_rate_limit("203.0.113.2", now=request_number)
+
+        self.assertIsNone(
+            analyze_api.check_rate_limit(
+                "203.0.113.2",
+                now=analyze_api.RATE_LIMIT_WINDOW_SECONDS,
+            )
+        )
 
 
 if __name__ == "__main__":

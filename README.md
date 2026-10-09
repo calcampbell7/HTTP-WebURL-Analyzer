@@ -7,6 +7,8 @@ This app lets you enter a website URL in the browser and view the analyzer outpu
 For safety, URLs must explicitly begin with `http://` or `https://`. The analyzer
 only connects to public internet addresses on ports 80 and 443; local, private,
 link-local, and reserved destinations are rejected, including after redirects.
+The API also applies a per-client limit of 10 requests per minute within each
+running application instance.
 
 ## What The App Shows
 
@@ -41,6 +43,14 @@ npm run dev
 
 Then open the local URL printed by Vite. The development server exposes
 `/api/analyze` and runs the Python analyzer automatically.
+
+## Production Rate Limiting
+
+Serverless instances do not share in-memory state, so production deployments
+must also configure a distributed rate limit in the Vercel Firewall. Create a
+`Rate Limit API Requests` rule for request path `/api/analyze`, with a suggested
+limit of 10 requests per minute per client and a `429` response action. The
+in-code limit remains as defense in depth for each warm function instance.
 
 ## Try it Out!
 https://vite-react-ochre-zeta-22.vercel.app
