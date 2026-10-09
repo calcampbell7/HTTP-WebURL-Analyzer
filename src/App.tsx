@@ -36,6 +36,12 @@ function App() {
       return
     }
 
+    if (!/^https?:\/\//i.test(trimmedUrl)) {
+      setError('Enter a complete URL beginning with http:// or https://.')
+      setResult(null)
+      return
+    }
+
     setIsLoading(true)
     setError(null)
 

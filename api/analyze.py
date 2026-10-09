@@ -10,6 +10,8 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from backend.Webtester import analyze  # noqa: E402
 
+MAX_REQUEST_BYTES = 4096
+
 
 class handler(BaseHTTPRequestHandler):
     def _send_json(self, status_code, payload):
@@ -21,7 +23,16 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(response)
 
     def do_POST(self):
-        content_length = int(self.headers.get("Content-Length", "0"))
+        try:
+            content_length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            self._send_json(400, {"error": "Invalid Content-Length"})
+            return
+
+        if content_length < 0 or content_length > MAX_REQUEST_BYTES:
+            self._send_json(413, {"error": "Request body is too large"})
+            return
+
         raw_body = self.rfile.read(content_length)
 
         try:
@@ -37,8 +48,11 @@ class handler(BaseHTTPRequestHandler):
 
         try:
             result = analyze(url)
-        except Exception as error:
-            self._send_json(500, {"error": str(error)})
+        except ValueError as error:
+            self._send_json(400, {"error": str(error)})
+            return
+        except Exception:
+            self._send_json(502, {"error": "Unable to analyze the requested URL"})
             return
 
         self._send_json(200, result)

@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 
 const execFileAsync = promisify(execFile)
+const MAX_REQUEST_BYTES = 4096
 
 function localAnalyzerApi(): Plugin {
   return {
@@ -22,8 +23,15 @@ function localAnalyzerApi(): Plugin {
         request.setEncoding('utf8')
         request.on('data', (chunk) => {
           rawBody += chunk
+          if (Buffer.byteLength(rawBody, 'utf8') > MAX_REQUEST_BYTES) {
+            response.statusCode = 413
+            response.end(JSON.stringify({ error: 'Request body is too large' }))
+            request.destroy()
+          }
         })
         request.on('end', async () => {
+          if (response.writableEnded) return
+
           try {
             const payload = JSON.parse(rawBody || '{}') as { url?: unknown }
             const url = typeof payload.url === 'string' ? payload.url.trim() : ''

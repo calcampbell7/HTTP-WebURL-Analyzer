@@ -4,6 +4,10 @@ This project is a React + TypeScript + Vite frontend paired with a Python socket
 
 This app lets you enter a website URL in the browser and view the analyzer output directly underneath the input bar.
 
+For safety, URLs must explicitly begin with `http://` or `https://`. The analyzer
+only connects to public internet addresses on ports 80 and 443; local, private,
+link-local, and reserved destinations are rejected, including after redirects.
+
 ## What The App Shows
 
 For a submitted website, the app displays:
