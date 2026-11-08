@@ -26,25 +26,6 @@ For a submitted website, the app displays:
 - The Python script performs the request and returns structured JSON.
 - The frontend renders that data below the input bar.
 
-## Run Locally
-
-You need Node.js, npm, and Python 3 installed. From the project directory, run:
-
-```bash
-npm install
-npm run dev
-```
-
-Then open the local URL printed by Vite. The development server exposes
-`/api/analyze` and runs the Python analyzer automatically.
-
-## Production Rate Limiting
-
-Serverless instances do not share in-memory state, so production deployments
-must also configure a distributed rate limit in the Vercel Firewall. Create a
-`Rate Limit API Requests` rule for request path `/api/analyze`, with a suggested
-limit of 10 requests per minute per client and a `429` response action. The
-in-code limit remains as defense in depth for each warm function instance.
 
 ## Try it Out!
 https://vite-react-ochre-zeta-22.vercel.app
